@@ -1,6 +1,6 @@
 package text_based;
 
-import com.csvreader.CsvReader;
+import com.opencsv.CSVReader;
 import com.google.common.base.Predicates;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
@@ -16,6 +16,7 @@ import utils.FileUtil;
 import utils.MatcherUtils;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -100,9 +101,10 @@ public class TextBased extends Baseline {
   public Multiset<FocusedRecord> readInFocusedOutput(String fileName) {
     Multiset<FocusedRecord> focusedRecords = HashMultiset.create();
     try {
-      CsvReader reader = new CsvReader(fileName, ',', StandardCharsets.UTF_8);
-      while (reader.readRecord()) {
-        FocusedRecord newRecord = new FocusedRecord(List.of(reader.getValues()));
+      CSVReader reader = new CSVReader(new FileReader(fileName), ',');
+      while (true) {
+        String[] list = reader.readNext();
+        FocusedRecord newRecord = new FocusedRecord(List.of(list));
         if (newRecord.defIdentifier.length() == 0 || newRecord.refIdentifier.length() == 0)
           continue;
         focusedRecords.add(newRecord);
