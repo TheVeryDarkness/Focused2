@@ -8,6 +8,7 @@ import model.CSTTree;
 import model.Language;
 import model.SharedStatus;
 import org.treesitter.*;
+import org.treesitter.TreeSitterRust;
 import utils.FileUtil;
 
 public class CSTBuilderNG {
@@ -44,13 +45,19 @@ public class CSTBuilderNG {
       case CSS:
         tsLanguage = new TreeSitterCss();
         break;
+      case CLike:
       case C:
+      case CC:
       case CPP:
       case HPP:
+      case H:
         tsLanguage = new TreeSitterCpp();
         break;
       case Python:
         tsLanguage = new TreeSitterPython();
+        break;
+      case Rust:
+        tsLanguage = new TreeSitterRust();
         break;
     }
     parser.setLanguage(tsLanguage);

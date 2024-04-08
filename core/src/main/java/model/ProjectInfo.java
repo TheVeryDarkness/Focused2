@@ -39,9 +39,15 @@ public class ProjectInfo {
         break;
       case "cpython":
         addLanguage(Language.Python);
+        addLanguage(Language.CLike);
         addLanguage(Language.C);
+        addLanguage(Language.H);
+        addLanguage(Language.CC);
         addLanguage(Language.CPP);
         addLanguage(Language.HPP);
+      case "rust":
+        addLanguage(Language.Rust);
+        break;
       default:
         addLanguage(Language.JAVA);
     }
