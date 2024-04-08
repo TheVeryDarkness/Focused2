@@ -25,9 +25,9 @@ public class MatcherTest {
   public void testURIAttr(){
     String uriAttr = "def[widgetID]";
     Pair<String, Pair<Boolean, String>> res = parseURIRefAttrInConfig(uriAttr);
-    assertEquals(res.getLeft(), "def");
+    assertEquals("def", res.getLeft());
     uriAttr = "ref.file";
     res = parseURIRefAttrInConfig(uriAttr);
-    assertEquals(res.getLeft(), "ref");
+    assertEquals("ref", res.getLeft());
   }
 }

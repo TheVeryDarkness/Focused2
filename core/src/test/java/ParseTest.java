@@ -12,11 +12,11 @@ public class ParseTest {
   public void testSegmentParsing(){
     String seg = "test(cap1)::key1#anchor[val1=(cap2),val2=123,val3=\\:def\\:]";
     SegmentPattern p = new SegmentPattern(SegmentType.NODE, seg);
-    assertEquals(p.text.text, "test(cap1)");
-    assertEquals(p.type.text, "key1");
-    assertEquals(p.anchor, "anchor");
-    assertEquals(p.attributes.size(), 3);
-    assertEquals(p.captures.size(), 2);
+    assertEquals("test(cap1)", p.text.text);
+    assertEquals("key1", p.type.text);
+    assertEquals("anchor", p.anchor);
+    assertEquals(3, p.attributes.size());
+    assertEquals(2, p.captures.size());
     System.out.println(p.attributes);
     System.out.println(p.captures);
     System.out.println(p);

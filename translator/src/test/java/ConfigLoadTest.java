@@ -23,14 +23,14 @@ public class ConfigLoadTest {
   @Test
   public void testConfigLink() {
     ConfigLink link = new ConfigLink("WidgetXLL(def, ref)");
-    assertEquals(link.decl.predicateName, "WidgetXLL");
+    assertEquals("WidgetXLL", link.decl.predicateName);
     System.out.println(link.decl.params);
   }
 
   @Test
   public void testConfigPredicate() {
     ConfigPredicate link = new ConfigPredicate("EndsWith(def.file, cat(include.includeLayout, \".xml\"))");
-    assertEquals(link.predicateName, "EndsWith");
+    assertEquals("EndsWith", link.predicateName);
     System.out.println(link.params);
   }
 }
