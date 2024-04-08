@@ -11,6 +11,7 @@ public class MatcherTest {
   public void testAttrsMatch(){
     String attrs = "abc=1,bcd=2,asd=a\\,b";
     Map<String, String> res = matchAttributes(attrs);
+    assertEquals(Map.of("abc", "1", "bcd", "2", "asd", "a\\,b"), res);
     System.out.println(res);
   }
 
