@@ -1,5 +1,6 @@
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
+import com.opencsv.exceptions.CsvValidationException;
 
 import models.Baseline;
 import org.jgrapht.alg.util.Pair;
@@ -32,32 +33,33 @@ public class GroundTruth extends Baseline {
             + ".csv";
   }
 
-  private List<Pair<String, String>> readInRangeGroundTruth() throws IOException, CsvException {
+  private List<Pair<String, String>> readInRangeGroundTruth() throws IOException, CsvValidationException {
     Reader reader = Files.newBufferedReader(Path.of(gt_path));
-    CSVReader csvReader = new CSVReader(reader);
-    // List<String[]> records = csvReader.readAll();
-    // 错误: 未报告的异常错误CsvException; 必须对其进行捕获或声明以便抛出
-    // csvReader.readAll();
-    List<String[]> records = csvReader.readAll();
-    List<Pair<String, String>> res = new ArrayList<>();
-    for (String[] record : records) {
-      res.add(new Pair<>(record[2], record[5]));
+    try (CSVReader csvReader = new CSVReader(reader)) {
+      List<Pair<String, String>> res = new ArrayList<>();
+      while (true) {
+        String[] record = csvReader.readNext();
+        if (record == null)
+          break;
+        res.add(new Pair<>(record[2], record[5]));
+      }
+      return res;
     }
-    return res;
   }
 
   private List<Pair<String, String>> readInOurResults(String resPath) throws IOException {
     List<Pair<String, String>> res = new ArrayList<>();
-    BufferedReader reader = Files.newBufferedReader(Path.of(resPath));
-    for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-      String[] parts = line.split(",");
-      if (parts.length != 2) {
-        throw new RuntimeException("Invalid format in " + resPath);
+    try (BufferedReader reader = Files.newBufferedReader(Path.of(resPath))) {
+      for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+        String[] parts = line.split(",");
+        if (parts.length != 2) {
+          throw new RuntimeException("Invalid format in " + resPath);
+        }
+        res.add(
+            new Pair<>(
+                parts[0].substring(1, parts[0].length() - 1),
+                parts[1].substring(1, parts[1].length() - 1)));
       }
-      res.add(
-          new Pair<>(
-              parts[0].substring(1, parts[0].length() - 1),
-              parts[1].substring(1, parts[1].length() - 1)));
     }
     return res;
   }

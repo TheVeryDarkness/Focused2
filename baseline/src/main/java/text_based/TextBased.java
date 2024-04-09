@@ -18,7 +18,6 @@ import utils.MatcherUtils;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -101,7 +100,7 @@ public class TextBased extends Baseline {
   public Multiset<FocusedRecord> readInFocusedOutput(String fileName) {
     Multiset<FocusedRecord> focusedRecords = HashMultiset.create();
     try {
-      CSVReader reader = new CSVReader(new FileReader(fileName), ',');
+      CSVReader reader = new CSVReader(new FileReader(fileName));
       while (true) {
         String[] list = reader.readNext();
         FocusedRecord newRecord = new FocusedRecord(List.of(list));

@@ -29,7 +29,7 @@ public class URITreeBuilderTest {
     URITreeBuilder builder = new URITreeBuilder(conf);
     URINode fileTree = builder.buildFromCST(cstTrees);
     while (!fileTree.type.equals("FILE"))
-      fileTree = ((List<URINode>) fileTree.children.values().toArray()[0]).get(0);
+      fileTree = (fileTree.children.values().iterator().next()).get(0);
     System.out.println(fileTree.type);
   }
 
@@ -48,7 +48,7 @@ public class URITreeBuilderTest {
     URITreeBuilder builder = new URITreeBuilder(conf);
     URINode fileTree = builder.buildFromCST(cstTrees);
     while (!fileTree.type.equals("FILE"))
-      fileTree = ((List<URINode>) fileTree.children.values().toArray()[0]).get(0);
+      fileTree = (fileTree.children.values().iterator().next()).get(0);
     System.out.println(fileTree.type);
   }
 
@@ -68,7 +68,7 @@ public class URITreeBuilderTest {
     URITreeBuilder builder = new URITreeBuilder(conf);
     URINode fileTree = builder.buildFromCST(cstTrees);
     while (!fileTree.type.equals("FILE"))
-      fileTree = ((List<URINode>) fileTree.children.values().toArray()[0]).get(0);
+      fileTree = (fileTree.children.values().iterator().next()).get(0);
     System.out.println(fileTree.type);
   }
 
@@ -88,7 +88,7 @@ public class URITreeBuilderTest {
     URITreeBuilder builder = new URITreeBuilder(conf);
     URINode fileTree = builder.buildFromCST(cstTrees);
     while (!fileTree.type.equals("FILE"))
-      fileTree = ((List<URINode>) fileTree.children.values().toArray()[0]).get(0);
+      fileTree = (fileTree.children.values().iterator().next()).get(0);
     System.out.println(fileTree.type);
   }
 
