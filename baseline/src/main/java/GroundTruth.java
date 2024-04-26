@@ -70,27 +70,29 @@ public class GroundTruth extends Baseline {
   private List<Pair<Location, Location>> readInRangeGroundTruth()
       throws CsvException, CsvValidationException, IOException {
     Reader reader = Files.newBufferedReader(Path.of(gt_path));
-    CSVReader csvReader = new CSVReader(reader);
-    csvReader.readNext();
-    List<String[]> records = csvReader.readAll();
-    List<Pair<Location, Location>> res = new ArrayList<>();
-    for (String[] record : records) {
-      res.add(new Pair<>(new Location(record[1], record[2]), new Location(record[4], record[5])));
+    try (CSVReader csvReader = new CSVReader(reader)) {
+      csvReader.readNext();
+      List<String[]> records = csvReader.readAll();
+      List<Pair<Location, Location>> res = new ArrayList<>();
+      for (String[] record : records) {
+        res.add(new Pair<>(new Location(record[1], record[2]), new Location(record[4], record[5])));
+      }
+      return res;
     }
-    return res;
   }
 
   private List<Pair<Location, Location>> readInOurResults(String resPath)
       throws CsvException, CsvValidationException, IOException {
     List<Pair<Location, Location>> res = new ArrayList<>();
     BufferedReader reader = Files.newBufferedReader(Path.of(resPath));
-    CSVReader csvReader = new CSVReader(reader);
-    csvReader.readNext();
-    List<String[]> records = csvReader.readAll();
-    for (String[] record : records) {
-      res.add(new Pair<>(new Location(record[0], record[1]), new Location(record[2], record[3])));
+    try (CSVReader csvReader = new CSVReader(reader)) {
+      csvReader.readNext();
+      List<String[]> records = csvReader.readAll();
+      for (String[] record : records) {
+        res.add(new Pair<>(new Location(record[0], record[1]), new Location(record[2], record[3])));
+      }
+      return res;
     }
-    return res;
   }
 
   public void validate(String resPath) {
