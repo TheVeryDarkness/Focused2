@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParseTest {
   @Test
-  public void testSegmentParsing(){
+  public void testSegmentParsing() {
     String seg = "test(cap1)::key1#anchor[val1=(cap2),val2=123,val3=\\:def\\:]";
     SegmentPattern p = new SegmentPattern(SegmentType.NODE, seg);
     System.out.println(p.attributes);
@@ -25,7 +25,7 @@ public class ParseTest {
   }
 
   @Test
-  public void testURIParsing(){
+  public void testURIParsing() {
     String lang = "JAVA";
     String file = "root//(layoutFile).xml";
     String element = "(elementTag)::XMLTag#func[idx=1]/~attr~/android\\:id//\"@id\\/(widgetID)\"";

@@ -95,23 +95,26 @@ public class URITreeBuilderTest {
   @Test
   public void testRust() throws UnsupportedEncodingException, FileNotFoundException {
     // Redirect System.out to a file
-    PrintStream out = new PrintStream(new FileOutputStream("1.txt"));
+    PrintStream out = new PrintStream(new FileOutputStream("rust.log"));
     System.setOut(out);
 
     SharedStatus.initProjectInfo(
-            "rust", System.getProperty("user.home") + "/home/code/projects/playground"
+            "rust", System.getProperty("user.home") + "/codes/rust"
     );
     Map<String, CSTTree> cstTrees =
             CSTBuilderNG.buildCST(
                     Language.Rust,
                     List.of(
-                            System.getProperty("user.home")
-                                    + "/home/code/projects/playground/src/main.rs"));
+                            System.getProperty("user.dir")
+                                    + "/codes/rust/main.rs"));
     TreeInfoConf conf =
             new TreeInfoConf(System.getProperty("user.dir") + "/src/main/resources/rust.tree");
     URITreeBuilder builder = new URITreeBuilder(conf);
     URINode fileTree = builder.buildFromCST(cstTrees);
     StringBuilder sb = URINode.renderURINode(fileTree);
     System.out.println(sb.toString());
+    while (!fileTree.type.equals("FILE"))
+      fileTree = (fileTree.children.values().iterator().next()).get(0);
+    System.out.println(fileTree.type);
   }
 }

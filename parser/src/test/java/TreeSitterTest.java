@@ -9,11 +9,6 @@ import java.io.UnsupportedEncodingException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TreeSitterTest {
-  static {
-    System.load(
-            System.getProperty("user.home")
-                    + "/Projects/tree-sitter/java-tree-sitter/libjava-tree-sitter.dylib");
-  }
 
   @Test
   void testWalk() throws UnsupportedEncodingException {
